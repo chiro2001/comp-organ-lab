@@ -1,23 +1,33 @@
 include ../scripts/build.mk
 
-all: hello hello.txt hello_dump.txt
+ALL := hello
 
-hello.i: hello.c
-	$(CC) -E hello.c -o hello.i
+CFLAGS := -static
 
-hello.s: hello.i
-	$(CC) -S hello.i -o hello.s
+all: $(ALL)
 
-hello.o: hello.s
-	$(CC) -c hello.s -o hello.o
+%.i: %.c
+	$(CC) -E $< -o $@
 
-hello: hello.o
-	$(CC) hello.o -o hello
+%.s: %.i
+	$(CC) -S $< -o $@
 
-hello_dump.txt: hello.o
-	$(OBJDUMP) -D hello.o > hello_dump.txt
+%.o: %.s
+	$(CC) -c $< -o $@
 
-hello.txt: hello
-	$(OBJDUMP) -S hello > hello.txt
+%: %.o
+	$(CC) $< -o $@
 
-.PHONY: all
+%_dump.txt: %.o
+	$(OBJDUMP) -D $< > $@
+
+%.txt: %
+	$(OBJDUMP) -S $< > $@
+
+clean:
+	-rm -rf *.s *.i *.o *.txt $(ALL)
+
+run:
+	spike $(PK) hello
+
+.PHONY: all clean

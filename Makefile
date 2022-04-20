@@ -8,4 +8,7 @@ $(LABS):
 	@echo "Making $@"
 	make -C $@
 
+clean:
+	make -C lab01 clean
+
 .PHONY: $(LABS)
