@@ -1,8 +1,8 @@
 include ../scripts/build.mk
 
-ALL := hello calc
+ALL := hello calc hello.bin calc.bin
 
-CFLAGS := -static
+CFLAGS := -static -nostdlib -march=rv64i -mabi=lp64
 
 all: $(ALL)
 
@@ -23,6 +23,10 @@ all: $(ALL)
 
 %.txt: %
 	$(OBJDUMP) -S $< > $@
+
+
+%.bin: %
+	$(OBJCOPY) -O binary $< $@
 
 clean:
 	-rm -rf *.s *.i *.o *.txt $(ALL)

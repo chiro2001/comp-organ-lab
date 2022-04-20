@@ -1,5 +1,6 @@
 # cross-compiler settings
-CROSS_COMPILE := riscv64-linux-gnu-
+# CROSS_COMPILE := riscv64-linux-gnu-
+CROSS_COMPILE := riscv64-unknown-elf-
 AS        = $(CROSS_COMPILE)gcc
 CC        = $(CROSS_COMPILE)gcc
 CXX       = $(CROSS_COMPILE)g++

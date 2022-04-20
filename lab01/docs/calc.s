@@ -84,7 +84,6 @@ main:
 	lw	a5,-24(s0)
 	mv	a1,a5
 	lla	a0,.LC0
-	call	printf@plt
 	li	a5,0
 	mv	a0,a5
 	ld	ra,24(sp)
