@@ -18,8 +18,11 @@ with os.popen("riscv64-linux-gnu-objdump -d calc") as f:
         de = [d for d in decoded.replace(':', '').split(' ')[2:] if len(d) > 0]
         info = {de[i]: de[i+1] for i in range(0, len(de), 2)}
         info['imm'] = int(info['imm'], 16)
+        imm_raw = info['imm']
         if info['imm'] & 0x80000000:
           info['imm'] = info['imm'] - 0xffffffff - 1
+        if '0x' in data['code']:
+          info['imm'] = f"{info['imm']}({hex(imm_raw)})"
         data['decode'] = info
-    print(data)
+    print(data['code'] + '\t' * (4 - len(data['code']) // 8) + str(data['decode']).replace('{', '').replace('}', '').replace("'", ''))
 

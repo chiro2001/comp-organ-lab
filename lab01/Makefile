@@ -19,7 +19,7 @@ all: $(ALL)
 	$(CC) $< -o $@
 
 %_dump.txt: %.o
-	$(OBJDUMP) -D $< > $@
+	$(OBJDUMP) -j .text -d $< > $@
 
 %.txt: %
 	$(OBJDUMP) -S $< > $@
