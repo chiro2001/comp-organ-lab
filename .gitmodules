@@ -1,0 +1,4 @@
+[submodule "lab01/nemu-lite"]
+	path = lab01/nemu-lite
+	url = https://github.com/crarch/nemu-lite
+	branch = riscv
