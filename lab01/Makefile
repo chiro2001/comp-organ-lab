@@ -28,6 +28,6 @@ clean:
 	-rm -rf *.s *.i *.o *.txt $(ALL)
 
 run:
-	spike $(PK) hello
+	$(SPIKE) $(PK) hello
 
 .PHONY: all clean

@@ -9,3 +9,4 @@ OBJCOPY   = $(CROSS_COMPILE)objcopy
 READELF   = $(CROSS_COMPILE)readelf
 RISCV			= $(HOME)/riscv
 PK				= $(RISCV)/riscv64-linux-gnu/bin/pk
+SPIKE  		= spike
