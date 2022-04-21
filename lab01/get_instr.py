@@ -17,7 +17,7 @@ with os.popen("riscv64-linux-gnu-objdump -d calc") as f:
       'inst': int(items[0], 16),
       'code': ' '.join(items[1:])
     }
-    with os.popen(f"./nemu-lite/build/riscv64-decoder {data['inst']}") as r:
+    with os.popen(f"./decoder {data['inst']}") as r:
       decoded = r.readlines()[0]
       if decoded[0] == 'E':
         data['decode'] = None

@@ -1,6 +1,6 @@
 include ../scripts/build.mk
 
-ALL := hello calc hello.bin calc.bin calc.s calc.o calc.i
+ALL := hello calc hello.bin calc.bin calc.s calc.o calc.i decoder
 
 CFLAGS := -static -nostdlib -march=rv64i -mabi=lp64
 
@@ -29,6 +29,9 @@ all: $(ALL)
 
 %.bin: %
 	$(OBJCOPY) -O binary $< $@
+
+decoder: decoder.c
+	gcc -o decoder decoder.c
 
 clean:
 	-rm -rf *.s *.i *.o *.txt $(ALL)
