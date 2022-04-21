@@ -1,6 +1,6 @@
 include ../scripts/build.mk
 
-ALL := test test.s
+ALL := test test.s test_comment.s
 
 CFLAGS := -static -march=rv64id -mabi=lp64d
 
@@ -11,6 +11,9 @@ all: $(ALL)
 
 %.s: %.i
 	$(CC) $(CFLAGS) -S $< -o $@
+
+%_comment.s: %.c
+	$(CC) $(CFLAGS) -c -g -Wa,-adlhn $< > $@
 
 %.o: %.s
 	$(CC) $(CFLAGS) -c $< -o $@
