@@ -5,9 +5,9 @@
 	.attribute stack_align, 16
 	.text
 	.align	2
-	.globl	get_hex
-	.type	get_hex, @function
-get_hex:
+	.globl	hex
+	.type	hex, @function
+hex:
 	addi	sp,sp,-80
 	sd	s0,72(sp)
 	addi	s0,sp,80
@@ -32,6 +32,9 @@ get_hex:
 	lw	a5,-68(s0)
 	sext.w	a5,a5
 	bne	a5,zero,.L3
+	ld	a5,-24(s0)
+	addi	a5,a5,-4
+	sd	a5,-24(s0)
 	sw	zero,-28(s0)
 	j	.L4
 .L5:
@@ -56,7 +59,7 @@ get_hex:
 	ld	s0,72(sp)
 	addi	sp,sp,80
 	jr	ra
-	.size	get_hex, .-get_hex
+	.size	hex, .-hex
 	.align	2
 	.globl	main
 	.type	main, @function
@@ -67,11 +70,11 @@ main:
 	addi	s0,sp,32
 	li	a5,200110080
 	addi	a0,a5,539
-	call	get_hex
+	call	hex
 	mv	a5,a0
 	sw	a5,-20(s0)
  #APP
-# 34 "test.c" 1
+# 24 "test.c" 1
 	addi s3, a5, 0
 # 0 "" 2
  #NO_APP
