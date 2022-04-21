@@ -1,10 +1,17 @@
 import os
 
+index = 0
 with os.popen("riscv64-linux-gnu-objdump -d calc") as f:
   lines = f.readlines()
-  lines = [line for line in lines if len(line) > 20 and line[8] == ':']
-  lines = [line.split(':')[-1].strip() for line in lines]
+  # lines = [line for line in lines if len(line) > 20 and line[8] == ':']
+  # lines = [line.split(':')[-1].strip() for line in lines]
   for line in lines:
+    if len(line.strip()) == 0:
+      continue
+    if not (len(line) > 20 and line[8] == ':'):
+      print(line)
+      continue
+    line = line.split(':')[-1].strip()
     items = [item.strip() for item in line.split('\t')]
     data = {
       'inst': int(items[0], 16),
@@ -24,5 +31,6 @@ with os.popen("riscv64-linux-gnu-objdump -d calc") as f:
         if '0x' in data['code']:
           info['imm'] = f"{info['imm']}({hex(imm_raw)})"
         data['decode'] = info
-    print(data['code'] + '\t' * (4 - len(data['code']) // 8) + str(data['decode']).replace('{', '').replace('}', '').replace("'", ''))
+    print("%3x: " % index + data['code'] + '\t' * (5 - (len(data['code']) + 6) // 8) + f"{data['inst']:08x} " + str(data['decode']).replace('{', '').replace('}', '').replace("'", ''))
+    index += 4
 
