@@ -1,6 +1,6 @@
 include ../scripts/build.mk
 
-ALL := test test.s test_comment.s code test2.s
+ALL := test test.s test_comment.s dec_to_hex test2.s
 
 CFLAGS := -static -march=rv64id -mabi=lp64d
 
@@ -24,14 +24,14 @@ all: $(ALL)
 %.bin: %
 	$(OBJCOPY) -O binary $< $@
 
-code: code.s
-	$(CC) $(CFLAGS) -nostdlib code.s -o code
+dec_to_hex: dec_to_hex.s
+	$(CC) $(CFLAGS) -nostdlib dec_to_hex.s -o dec_to_hex
 
 clean:
 	-rm -rf *.i *.o $(ALL)
 
 run: $(ALL)
 	$(SPIKE) $(PK) test
-	-$(SPIKE) $(PK) code
+	-$(SPIKE) $(PK) dec_to_hex
 
 .PHONY: all clean
