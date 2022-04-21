@@ -1,6 +1,6 @@
 include ../scripts/build.mk
 
-ALL := test test.s test_comment.s code
+ALL := test test.s test_comment.s code test2.s
 
 CFLAGS := -static -march=rv64id -mabi=lp64d
 

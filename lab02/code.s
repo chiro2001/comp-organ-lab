@@ -9,7 +9,7 @@ hex:
 	addi	sp,sp,-80
 	sd	s0,72(sp)
 	addi	s0,sp,80
-	mv	a5,a0
+	addi	a5,a0,0
 	sw	a5,-68(s0)
 	addi	a5,s0,-64
 	sd	a5,-24(s0)
@@ -53,10 +53,10 @@ hex:
 	ld	a4,-24(s0)
 	bne	a4,a5,.L5
 	lw	a5,-28(s0)
-	mv	a0,a5
+	addi	a0,a5,0
 	ld	s0,72(sp)
 	addi	sp,sp,80
-	jr	ra
+	jalr	zero,ra,0
 main:
 	addi	sp,sp,-32
 	sd	ra,24(sp)
@@ -64,14 +64,18 @@ main:
 	addi	s0,sp,32
 	li	a5,200110080
 	addi	a0,a5,539
-	call	hex
-	mv	a5,a0
+	lui	t1,%hi(hex)
+	addi	t1,t1,%lo(hex)
+	jalr	ra,t1,0
+	addi	a5,a0,0
 	sw	a5,-20(s0)
-	addi s3, a5, 0
+	addi	s3,a5,0
 	sw	a5,-20(s0)
 	li	a5,0
-	mv	a0,a5
+	addi	a0,a5,0
 	ld	ra,24(sp)
 	ld	s0,16(sp)
 	addi	sp,sp,32
-	jr	ra
+_exit:
+	addi zero,zero,0
+	# j _exit
