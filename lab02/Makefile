@@ -1,6 +1,6 @@
 include ../scripts/build.mk
 
-ALL := test test.s test_comment.s
+ALL := test test.s test_comment.s code
 
 CFLAGS := -static -march=rv64id -mabi=lp64d
 
@@ -24,10 +24,14 @@ all: $(ALL)
 %.bin: %
 	$(OBJCOPY) -O binary $< $@
 
+code: code.s
+	$(CC) $(CFLAGS) -nostdlib code.s -o code
+
 clean:
-	-rm -rf *.s *.i *.o $(ALL)
+	-rm -rf *.i *.o $(ALL)
 
 run: $(ALL)
 	$(SPIKE) $(PK) test
+	-$(SPIKE) $(PK) code
 
 .PHONY: all clean
