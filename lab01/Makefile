@@ -1,22 +1,22 @@
 include ../scripts/build.mk
 
-ALL := hello calc hello.bin calc.bin
+ALL := hello calc hello.bin calc.bin calc.s calc.o calc.i
 
 CFLAGS := -static -nostdlib -march=rv64i -mabi=lp64
 
 all: $(ALL)
 
 %.i: %.c
-	$(CC) -E $< -o $@
+	$(CC) $(CFLAGS) -E $< -o $@
 
 %.s: %.i
-	$(CC) -S $< -o $@
+	$(CC) $(CFLAGS) -S $< -o $@
 
 %.o: %.s
-	$(CC) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 %: %.o
-	$(CC) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 
 %_dump.txt: %.o
 	$(OBJDUMP) -j .text -d $< > $@
