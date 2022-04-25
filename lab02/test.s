@@ -8,56 +8,53 @@
 	.globl	hex
 	.type	hex, @function
 hex:
-	addi	sp,sp,-80
-	sd	s0,72(sp)
-	addi	s0,sp,80
-	mv	a5,a0
-	sw	a5,-68(s0)
-	addi	a5,s0,-64
+	addi	sp,sp,-112
+	sd	s0,104(sp)
+	addi	s0,sp,112
+	sd	a0,-104(s0)
+	addi	a5,s0,-96
 	sd	a5,-24(s0)
 	j	.L2
 .L3:
-	lw	a5,-68(s0)
-	andi	a5,a5,15
-	sext.w	a4,a5
+	ld	a5,-104(s0)
+	andi	a4,a5,15
 	ld	a5,-24(s0)
-	sw	a4,0(a5)
-	lw	a5,-68(s0)
-	srliw	a5,a5,4
-	sw	a5,-68(s0)
+	sd	a4,0(a5)
+	ld	a5,-104(s0)
+	srli	a5,a5,4
+	sd	a5,-104(s0)
 	ld	a5,-24(s0)
-	addi	a5,a5,4
+	addi	a5,a5,8
 	sd	a5,-24(s0)
 .L2:
-	lw	a5,-68(s0)
-	sext.w	a5,a5
+	ld	a5,-104(s0)
 	bne	a5,zero,.L3
 	ld	a5,-24(s0)
-	addi	a5,a5,-4
+	addi	a5,a5,-8
 	sd	a5,-24(s0)
-	sw	zero,-28(s0)
+	sd	zero,-32(s0)
 	j	.L4
 .L5:
-	lw	a5,-28(s0)
-	slliw	a5,a5,4
-	sw	a5,-28(s0)
+	ld	a5,-32(s0)
+	slli	a5,a5,4
+	sd	a5,-32(s0)
 	ld	a5,-24(s0)
-	lw	a5,0(a5)
-	lw	a4,-28(s0)
-	addw	a5,a4,a5
-	sw	a5,-28(s0)
+	ld	a5,0(a5)
+	ld	a4,-32(s0)
+	add	a5,a4,a5
+	sd	a5,-32(s0)
 	ld	a5,-24(s0)
-	addi	a5,a5,-4
+	addi	a5,a5,-8
 	sd	a5,-24(s0)
 .L4:
-	addi	a5,s0,-64
-	addi	a5,a5,-4
+	addi	a5,s0,-96
+	addi	a5,a5,-8
 	ld	a4,-24(s0)
 	bne	a4,a5,.L5
-	lw	a5,-28(s0)
+	ld	a5,-32(s0)
 	mv	a0,a5
-	ld	s0,72(sp)
-	addi	sp,sp,80
+	ld	s0,104(sp)
+	addi	sp,sp,112
 	jr	ra
 	.size	hex, .-hex
 	.align	2
@@ -71,14 +68,13 @@ main:
 	li	a5,200110080
 	addi	a0,a5,539
 	call	hex
-	mv	a5,a0
-	sw	a5,-20(s0)
+	sd	a0,-24(s0)
  #APP
 # 24 "test.c" 1
 	addi s3, a5, 0
 # 0 "" 2
  #NO_APP
-	sw	a5,-20(s0)
+	sd	a5,-24(s0)
 	li	a5,0
 	mv	a0,a5
 	ld	ra,24(sp)
