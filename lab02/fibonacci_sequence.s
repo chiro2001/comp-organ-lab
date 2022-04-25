@@ -15,8 +15,13 @@ _start:
 	lw	a0,0(t1)
 	li	a5,20
 	addi	a0,a5,0
-	call	fib
+	lui	t1,%hi(fib)
+	addi	t1,t1,%lo(fib)
+	jalr	ra,t1,0
 	addi	s3,a0,0
+	ld	ra,24(sp)
+	ld	s0,16(sp)
+	addi	sp,sp,32
 	j _exit
 fib:
 	addi	sp,sp,-48
@@ -39,12 +44,16 @@ fib:
 	ld	a5,-40(s0)
 	addi	a5,a5,-1
 	addi	a0,a5,0
-	call	fib
+	lui	t1,%hi(fib)
+	addi	t1,t1,%lo(fib)
+	jalr	ra,t1,0
 	addi	s1,a0,0
 	ld	a5,-40(s0)
 	addi	a5,a5,-2
 	addi	a0,a5,0
-	call	fib
+	lui	t1,%hi(fib)
+	addi	t1,t1,%lo(fib)
+	jalr	ra,t1,0
 	addi	a5,a0,0
 	add	a5,s1,a5
 .L4:
@@ -55,4 +64,4 @@ fib:
 	addi	sp,sp,48
 	jr	ra
 _exit:
-	nop
+
