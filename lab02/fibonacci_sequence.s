@@ -7,17 +7,14 @@ N:
 	.globl	fib
 	.globl	_start
 _start:
-	# addi	sp,sp,-48
-	# lui	t1,%hi(N)
-	# addi	t1,t1,%lo(N)
-	# lw	a0,0(t1)
 	addi	sp,sp,-32
 	sd	ra,24(sp)
 	sd	s0,16(sp)
-	addi	s0,sp,32
+	lui	t1,%hi(N)
+	addi	t1,t1,%lo(N)
+	lw	a0,0(t1)
 	li	a5,20
-	mv	a0,a5
-	
+	addi	a0,a5,0
 	call	fib
 	addi	s3,a0,0
 	j _exit
@@ -28,34 +25,28 @@ fib:
 	sd	s1,24(sp)
 	addi	s0,sp,48
 	addi	a5,a0,0
-	sw	a5,-36(s0)
-	lw	a5,-36(s0)
-	sext.w	a4,a5
+	sd	a0,-40(s0)
+	ld	a4,-40(s0)
 	li	a5,1
 	beq	a4,a5,.L2
-	lw	a5,-36(s0)
-	sext.w	a4,a5
+	ld	a4,-40(s0)
 	li	a5,2
 	bne	a4,a5,.L3
 .L2:
 	li	a5,1
 	j	.L4
 .L3:
-	lw	a5,-36(s0)
-	addiw	a5,a5,-1
-	sext.w	a5,a5
+	ld	a5,-40(s0)
+	addi	a5,a5,-1
+	addi	a0,a5,0
+	call	fib
+	addi	s1,a0,0
+	ld	a5,-40(s0)
+	addi	a5,a5,-2
 	addi	a0,a5,0
 	call	fib
 	addi	a5,a0,0
-	addi	s1,a5,0
-	lw	a5,-36(s0)
-	addiw	a5,a5,-2
-	sext.w	a5,a5
-	addi	a0,a5,0
-	call	fib
-	addi	a5,a0,0
-	addw	a5,s1,a5
-	sext.w	a5,a5
+	add	a5,s1,a5
 .L4:
 	addi	a0,a5,0
 	ld	ra,40(sp)
