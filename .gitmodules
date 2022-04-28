@@ -2,3 +2,7 @@
 	path = lab01/nemu-lite
 	url = https://github.com/crarch/nemu-lite
 	branch = riscv
+[submodule "lab03/chisel"]
+	path = lab03/chisel
+	url = https://github.com/chiro2001/chisel-playground
+	branch = booth

@@ -1,0 +1,4 @@
+*.vcd
+/tmp/*
+!.gitkeep
+*.log
