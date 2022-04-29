@@ -17,7 +17,7 @@ reg [31:0] result [8:0] ;
 
 initial begin
 		$dumpfile("tmp/dump.vcd");
-		$dumpvars(0, u_booth);
+		$dumpvars(0, u_booth2);
     clk = 0;
     rst_n = 0;
     start = 0;
@@ -65,8 +65,8 @@ always @ (posedge clk or negedge rst_n) begin
 end
 
 wire test_cnt1_end = (test_cnt1 == 4'h8) & test_cnt2_end;
-wire test_cnt2_end = (test_cnt2 == 5'h16);
-wire check_point = (test_cnt2 == 5'h15);
+wire test_cnt2_end = (test_cnt2 == 5'hD);
+wire check_point = (test_cnt2 == 5'hC);
 
 always @ (posedge clk or negedge rst_n) begin
     if (~rst_n)             test_period <= 1'b0;
@@ -173,14 +173,14 @@ always @ (posedge clk) begin
     end
 end
 
-booth u_booth (
-    .clk  	(clk       ),
+booth2 u_booth2 (
+    .clk    (clk       ),
     .rst_n  (rst_n     ),
-    .x    	(x         ),
-    .y    	(y         ),
-    .start	(start_r_ff),
-    .z    	(z         ),
-    .busy 	(busy      )
+    .x      (x         ),
+    .y      (y         ),
+    .start  (start_r_ff),
+    .z      (z         ),
+    .busy   (busy      )
 );
 
 endmodule
