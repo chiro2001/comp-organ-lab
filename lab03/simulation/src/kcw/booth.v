@@ -34,7 +34,7 @@ reg [31:0] finalResult;						// 乘积结果
 
 // booth算法核心逻辑
 always @(posedge clk or negedge rst_n) begin
-	除符号位外有多少位移多少次
+	// 除符号位外有多少位移多少次
 	// while (count < 16) begin
 		if(busy)begin
 				judgeFlag <= extraDigit - multiplier[0];
