@@ -25,3 +25,16 @@
 
 1. `dec_to_hex.asm`：十进制转二进制程序
 2. `fibonacci_sequence.asm`：斐波那契求 `fib(20)` 的程序
+
+## 实验3说明
+
+实验文件位于 `lab03/` 目录下；作为作业提交的 `booth.v/booth2.v` 和实验报告（Word）在根目录下。
+
+**文件：**
+
+1. `booth.v`：verilog 实现的 1 位 Booth 算法
+2. `booth2.v`：verilog 实现的 2 位 Booth 算法
+3. `lab03/chisel/src/main/scala/booth/Booth.scala`：Chisel 实现的 1 位 Booth 算法
+4. `lab03/chisel/src/main/scala/booth/BetterBooth.scala`：Chisel 实现的 2 位 Booth 算法
+5. `lab03/simulation/tmp/dump_booth(2).vcd`：仿真产生的波形文件
+
