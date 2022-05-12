@@ -130,6 +130,7 @@ always @(*) begin
         end
         RESP: begin
             raddr_to_ram = 0;
+            $display("\t ==== read mem data [%x]: %x", raddr, reg4b);
             rdata        = reg4b;
             rvalid       = 1;
         end

@@ -1,4 +1,4 @@
 CACHE-READING TEST PASSED
-Cycles spent on reading cache: 4093
+Cycles spent on reading cache: ffd
 TEST FAILED
-At read addr 0000, expect 1a, but get ff
+At read addr 0000, expect 1a, but get 3d

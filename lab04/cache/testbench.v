@@ -36,19 +36,19 @@ always #10 clk = ~clk;
 
 always @(posedge clk) begin
     if (g0.current_state == 4'h1)
-        $display("访问地址为",g0.test_addr);
+        $display("访问地址为 %x", g0.test_addr);
     if (g0.current_state == 4'h2 && g0.next_state == 4'h2 && !g0.cache_whit)
-        $display("等待Cache响应，应得到数据",g0.data_from_trace);
+        $display("等待Cache响应，应得到数据 %x", g0.data_from_trace);
     if (g0.current_state == 4'h2 && g0.next_state == 4'h2 && g0.cache_whit)
-        $display("等待Cache响应，应得到数据",g0.cache_wdata);
+        $display("等待Cache响应，应得到数据 %x", g0.cache_wdata);
     if (g0.current_state == 4'h2 && g0.cache_hit)
         $display("Cache读命中!");
     if (g0.current_state == 4'h3)
-        $display("Cache已取回数据", g0.data_from_cache);
+        $display("Cache已取回数据 %x", g0.data_from_cache);
     if (g0.current_state == 4'h3 && (g0.next_state == 4'h1 && !rd_test_success || g0.next_state == 4'h5 && rd_test_success))
         $display("该地址测试正确，将测试下一个地址\n ----------- ");
     if (g0.current_state == 4'h5)
-        $display("写地址为%d，写数据为%d", g0.test_addr, g0.cache_wdata);
+        $display("写地址为 %x，写数据为 %x", g0.test_addr, g0.cache_wdata);
     if (g0.current_state == 4'h6 && g0.cache_hit)
         $display("Cache写命中!");
     if (g0.current_state == 4'h6 && !g0.cache_hit)
@@ -60,7 +60,7 @@ end
 always @(posedge clk) begin
     if (rd_test_success & !f0) begin
         $fwrite(fp_w, "CACHE-READING TEST PASSED\n");
-        $fwrite(fp_w, "Cycles spent on reading cache: %d\n", count);
+        $fwrite(fp_w, "Cycles spent on reading cache: %x\n", count);
         $display("=======================读Cache测试全部通过=========================");
         f0 <= 1;
     end

@@ -53,10 +53,13 @@ assign wdata_to_cache = (offset == 2'b00) ? {cache_line[31:8], wdata_from_cpu} :
                         (offset == 2'b10) ? {cache_line[31:24], wdata_from_cpu, cache_line[15:0]} : 
                             {wdata_from_cpu, cache_line[23:0]};
 
-wire [37:0] cache_line_r = {1'b1, tag_from_cpu, wreq_from_cpu ? wdata_to_cache : rdata_from_mem};           // 待写入Cache的Cache行数据
-
 wire hit  = (current_state == TAG_CHECK) && (valid_bit) && (tag_from_cache == tag_from_cpu);
 wire miss = (tag_from_cache != tag_from_cpu) | (~valid_bit);
+
+// integer fp;
+
+// 待写入Cache的Cache行数据
+wire [37:0] cache_line_r = {1'b1, tag_from_cpu, rdata_from_mem};
 
 // 根据Cache行的字节偏移，从Cache块中选取CPU所需的字节数据
 assign rdata_to_cpu = (offset == 2'b00) ? cache_line[7:0] :
@@ -73,6 +76,18 @@ blk_mem_gen_0 u_cache (
     .dina   (cache_line_r),
     .douta  (cache_line  )
 );
+
+// initial begin
+//     fp = $fopen("trace.txt", "w");
+// end
+
+always @(posedge clk) begin
+    if (wea) begin
+        $display("w [%x]: %x", cache_index, cache_line_r);
+    end else begin
+        $display("r [%x]: %x", cache_index, cache_line);
+    end
+end
 
 
 always @(posedge clk) begin
@@ -115,7 +130,7 @@ always @(*) begin
 end
 
 // 生成Block RAM的写使能信号
-assign wea = ((current_state == REFILL) && rvalid_from_mem) || ((next_state == READY) && wreq_from_cpu);
+assign wea = (current_state == REFILL) && rvalid_from_mem;
 
 // 生成读取主存所需的信号，即读请求信号rreq_to_mem和读地址信号raddr_to_mem
 always @(posedge clk) begin
