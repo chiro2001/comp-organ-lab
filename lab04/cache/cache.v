@@ -45,9 +45,15 @@ wire [ 5:0] cache_index    = addr_from_cpu[7:2];            // 主存地址中的Cache
 wire [ 4:0] tag_from_cpu   = addr_from_cpu[12:8];           // 主存地址的Tag
 wire [ 1:0] offset         = addr_from_cpu[1:0];            // Cache行内的字节偏移
 wire        valid_bit      = cache_line[37];                // Cache行的有效位
-wire [ 4:0] tag_from_cache = cache_line[36:32];               // Cache行的Tag
+wire [ 4:0] tag_from_cache = cache_line[36:32];             // Cache行的Tag
 
-wire [37:0] cache_line_r = {1'b1, tag_from_cpu, rdata_from_mem};           // 待写入Cache的Cache行数据
+wire [31:0] wdata_to_cache;
+assign wdata_to_cache = (offset == 2'b00) ? {cache_line[31:8], wdata_from_cpu} :
+                        (offset == 2'b01) ? {cache_line[31:16], wdata_from_cpu, cache_line[7:0]} :
+                        (offset == 2'b10) ? {cache_line[31:24], wdata_from_cpu, cache_line[15:0]} : 
+                            {wdata_from_cpu, cache_line[23:0]};
+
+wire [37:0] cache_line_r = {1'b1, tag_from_cpu, wreq_from_cpu ? wdata_to_cache : rdata_from_mem};           // 待写入Cache的Cache行数据
 
 wire hit  = (current_state == TAG_CHECK) && (valid_bit) && (tag_from_cache == tag_from_cpu);
 wire miss = (tag_from_cache != tag_from_cpu) | (~valid_bit);
@@ -88,7 +94,8 @@ always @(*) begin
             end
         end
         TAG_CHECK: begin
-            if (miss) begin
+            // 写缺失不写入内存
+            if (miss && rreq_from_cpu) begin
                 next_state = REFILL;
             end else begin
                 next_state = READY;
@@ -108,7 +115,7 @@ always @(*) begin
 end
 
 // 生成Block RAM的写使能信号
-assign wea = (current_state == REFILL) && rvalid_from_mem;
+assign wea = ((current_state == REFILL) && rvalid_from_mem) || ((next_state == READY) && wreq_from_cpu);
 
 // 生成读取主存所需的信号，即读请求信号rreq_to_mem和读地址信号raddr_to_mem
 always @(posedge clk) begin
@@ -140,6 +147,7 @@ end
 
 
 // 写命中处理（写直达法）：写命中时，既要更新Cache块，也要更新内存数据
+// 写缺失：不写入主存，hit = 0
 always @(posedge clk) begin
     if (reset) begin
         wreq_to_mem <= 0;
@@ -153,7 +161,7 @@ always @(posedge clk) begin
             end
             TAG_CHECK: begin
                 waddr_to_mem <= addr_from_cpu;
-                wreq_to_mem  <= miss && wreq_from_cpu;
+                wreq_to_mem  <= !miss && wreq_from_cpu;
                 wdata_to_mem <= wdata_from_cpu;
             end
             REFILL: begin
