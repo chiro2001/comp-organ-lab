@@ -11,116 +11,18 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="1433000001fs"></ZoomEndTime>
-      <Cursor1Time time="489000000fs"></Cursor1Time>
+      <ZoomStartTime time="1150750000000fs"></ZoomStartTime>
+      <ZoomEndTime time="1455950000001fs"></ZoomEndTime>
+      <Cursor1Time time="1404950000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="217"></NameColumnWidth>
-      <ValueColumnWidth column_width="152"></ValueColumnWidth>
+      <ValueColumnWidth column_width="146"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="52" />
+   <WVObjectSize size="25" />
    <wave_markers>
       <marker time="1392690000000" label="" />
    </wave_markers>
-   <wvobject fp_name="/testbench/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/reset" type="logic">
-      <obj_property name="ElementShortName">reset</obj_property>
-      <obj_property name="ObjectShortName">reset</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/rd_test_success" type="logic">
-      <obj_property name="ElementShortName">rd_test_success</obj_property>
-      <obj_property name="ObjectShortName">rd_test_success</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/test_success" type="logic">
-      <obj_property name="ElementShortName">test_success</obj_property>
-      <obj_property name="ObjectShortName">test_success</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/test_fail" type="logic">
-      <obj_property name="ElementShortName">test_fail</obj_property>
-      <obj_property name="ObjectShortName">test_fail</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/test_addr" type="array">
-      <obj_property name="ElementShortName">test_addr[12:0]</obj_property>
-      <obj_property name="ObjectShortName">test_addr[12:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/test_cache_idx" type="array">
-      <obj_property name="ElementShortName">test_cache_idx[5:0]</obj_property>
-      <obj_property name="ObjectShortName">test_cache_idx[5:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache_rreq" type="logic">
-      <obj_property name="ElementShortName">cache_rreq</obj_property>
-      <obj_property name="ObjectShortName">cache_rreq</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache_wreq" type="logic">
-      <obj_property name="ElementShortName">cache_wreq</obj_property>
-      <obj_property name="ObjectShortName">cache_wreq</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache_hit" type="logic">
-      <obj_property name="ElementShortName">cache_hit</obj_property>
-      <obj_property name="ObjectShortName">cache_hit</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache_whit" type="logic">
-      <obj_property name="ElementShortName">cache_whit</obj_property>
-      <obj_property name="ObjectShortName">cache_whit</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache_rdata" type="array">
-      <obj_property name="ElementShortName">cache_rdata[7:0]</obj_property>
-      <obj_property name="ObjectShortName">cache_rdata[7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/trace_rdata" type="array">
-      <obj_property name="ElementShortName">trace_rdata[7:0]</obj_property>
-      <obj_property name="ObjectShortName">trace_rdata[7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/current_state" type="array">
-      <obj_property name="ElementShortName">current_state[3:0]</obj_property>
-      <obj_property name="ObjectShortName">current_state[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/next_state" type="array">
-      <obj_property name="ElementShortName">next_state[3:0]</obj_property>
-      <obj_property name="ObjectShortName">next_state[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/current_state" type="array">
-      <obj_property name="ElementShortName">current_state[3:0]</obj_property>
-      <obj_property name="ObjectShortName">current_state[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/next_state" type="array">
-      <obj_property name="ElementShortName">next_state[3:0]</obj_property>
-      <obj_property name="ObjectShortName">next_state[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/rreq_from_cpu" type="logic">
-      <obj_property name="ElementShortName">rreq_from_cpu</obj_property>
-      <obj_property name="ObjectShortName">rreq_from_cpu</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/wreq_from_cpu" type="logic">
-      <obj_property name="ElementShortName">wreq_from_cpu</obj_property>
-      <obj_property name="ObjectShortName">wreq_from_cpu</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/hit" type="logic">
-      <obj_property name="ElementShortName">hit</obj_property>
-      <obj_property name="ObjectShortName">hit</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/tag_from_cpu" type="array">
-      <obj_property name="ElementShortName">tag_from_cpu[4:0]</obj_property>
-      <obj_property name="ObjectShortName">tag_from_cpu[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/tag_from_cache" type="array">
-      <obj_property name="ElementShortName">tag_from_cache[4:0]</obj_property>
-      <obj_property name="ObjectShortName">tag_from_cache[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/reset" type="logic">
-      <obj_property name="ElementShortName">reset</obj_property>
-      <obj_property name="ObjectShortName">reset</obj_property>
-   </wvobject>
    <wvobject fp_name="/testbench/g0/cache0/addr_from_cpu" type="array">
       <obj_property name="ElementShortName">addr_from_cpu[12:0]</obj_property>
       <obj_property name="ObjectShortName">addr_from_cpu[12:0]</obj_property>
@@ -164,6 +66,8 @@
    <wvobject fp_name="/testbench/g0/cache0/wreq_to_mem" type="logic">
       <obj_property name="ElementShortName">wreq_to_mem</obj_property>
       <obj_property name="ObjectShortName">wreq_to_mem</obj_property>
+      <obj_property name="CustomSignalColor">#FF0080</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/g0/cache0/waddr_to_mem" type="array">
       <obj_property name="ElementShortName">waddr_to_mem[12:0]</obj_property>
@@ -176,6 +80,8 @@
    <wvobject fp_name="/testbench/g0/cache0/current_state" type="array">
       <obj_property name="ElementShortName">current_state[3:0]</obj_property>
       <obj_property name="ObjectShortName">current_state[3:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/g0/cache0/next_state" type="array">
       <obj_property name="ElementShortName">next_state[3:0]</obj_property>
@@ -196,6 +102,14 @@
    <wvobject fp_name="/testbench/g0/cache0/tag_from_cpu" type="array">
       <obj_property name="ElementShortName">tag_from_cpu[4:0]</obj_property>
       <obj_property name="ObjectShortName">tag_from_cpu[4:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/g0/cache0/tag_from_cache" type="array">
+      <obj_property name="ElementShortName">tag_from_cache[4:0]</obj_property>
+      <obj_property name="ObjectShortName">tag_from_cache[4:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/g0/cache0/offset" type="array">
       <obj_property name="ElementShortName">offset[1:0]</obj_property>
@@ -204,10 +118,6 @@
    <wvobject fp_name="/testbench/g0/cache0/valid_bit" type="logic">
       <obj_property name="ElementShortName">valid_bit</obj_property>
       <obj_property name="ObjectShortName">valid_bit</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/tag_from_cache" type="array">
-      <obj_property name="ElementShortName">tag_from_cache[4:0]</obj_property>
-      <obj_property name="ObjectShortName">tag_from_cache[4:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/g0/cache0/cache_line_r" type="array">
       <obj_property name="ElementShortName">cache_line_r[37:0]</obj_property>
@@ -220,17 +130,5 @@
    <wvobject fp_name="/testbench/g0/cache0/miss" type="logic">
       <obj_property name="ElementShortName">miss</obj_property>
       <obj_property name="ObjectShortName">miss</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/READY" type="array">
-      <obj_property name="ElementShortName">READY[3:0]</obj_property>
-      <obj_property name="ObjectShortName">READY[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/TAG_CHECK" type="array">
-      <obj_property name="ElementShortName">TAG_CHECK[3:0]</obj_property>
-      <obj_property name="ObjectShortName">TAG_CHECK[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/g0/cache0/REFILL" type="array">
-      <obj_property name="ElementShortName">REFILL[3:0]</obj_property>
-      <obj_property name="ObjectShortName">REFILL[3:0]</obj_property>
    </wvobject>
 </wave_config>

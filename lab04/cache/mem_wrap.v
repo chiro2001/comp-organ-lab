@@ -97,7 +97,7 @@ always @(posedge clk) begin
             raddr_latch <= raddr_latch;
             burst_cnt   <= 0;
             wait_count  <= 0;
-            $display("\t ==== read mem data [%x]: %x", raddr, rdata);
+            // $display("\t ==== read mem data [%x]: %x", raddr, rdata);
         end
     end
 end

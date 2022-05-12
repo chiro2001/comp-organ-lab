@@ -56,8 +56,6 @@ assign wdata_to_cache = (offset == 2'b00) ? {cache_line[31:8], wdata_from_cpu} :
 wire hit  = (current_state == TAG_CHECK) && (valid_bit) && (tag_from_cache == tag_from_cpu);
 wire miss = (tag_from_cache != tag_from_cpu) | (~valid_bit);
 
-// integer fp;
-
 // 待写入Cache的Cache行数据
 wire [37:0] cache_line_r = {1'b1, tag_from_cpu, rdata_from_mem};
 
@@ -77,17 +75,13 @@ blk_mem_gen_0 u_cache (
     .douta  (cache_line  )
 );
 
-// initial begin
-//     fp = $fopen("trace.txt", "w");
+// always @(posedge clk) begin
+//     if (wea) begin
+//         $display("w [%x]: %x", cache_index, cache_line_r);
+//     end else begin
+//         $display("r [%x]: %x", cache_index, cache_line);
+//     end
 // end
-
-always @(posedge clk) begin
-    if (wea) begin
-        $display("w [%x]: %x", cache_index, cache_line_r);
-    end else begin
-        $display("r [%x]: %x", cache_index, cache_line);
-    end
-end
 
 
 always @(posedge clk) begin
@@ -110,14 +104,14 @@ always @(*) begin
         end
         TAG_CHECK: begin
             // 写缺失不写入内存
-            if (miss && rreq_from_cpu) begin
+            if (miss || (!miss && wreq_from_cpu)) begin
                 next_state = REFILL;
             end else begin
                 next_state = READY;
             end
         end
         REFILL: begin
-            if (rvalid_from_mem) begin
+            if (rvalid_from_mem || wreq_from_cpu) begin
                 next_state = TAG_CHECK;
             end else begin 
                 next_state = REFILL;
@@ -137,10 +131,6 @@ always @(posedge clk) begin
     if (reset) begin
         raddr_to_mem <= 0;
         rreq_to_mem <= 0;
-
-        wreq_to_mem <= 0;
-        waddr_to_mem <= 13'b0;
-        wdata_to_mem <= 8'b0;
     end else begin
         case (next_state)
             READY: begin
@@ -167,33 +157,33 @@ end
 
 // 写命中处理（写直达法）：写命中时，既要更新Cache块，也要更新内存数据
 // 写缺失：不写入主存，hit = 0
-// always @(posedge clk) begin
-//     if (reset) begin
-//         wreq_to_mem <= 0;
-//         waddr_to_mem <= 13'b0;
-//         wdata_to_mem <= 8'b0;
-//     end else begin
-//         case (next_state)
-//             READY: begin
-//                 waddr_to_mem <= 0;
-//                 wreq_to_mem  <= 0;
-//             end
-//             TAG_CHECK: begin
-//                 waddr_to_mem <= addr_from_cpu;
-//                 wreq_to_mem  <= !miss && wreq_from_cpu;
-//                 wdata_to_mem <= wdata_from_cpu;
-//             end
-//             REFILL: begin
-//                 waddr_to_mem <= addr_from_cpu;
-//                 wreq_to_mem  <= wreq_from_cpu;
-//             end
-//             default: begin
-//                 waddr_to_mem <= 0;
-//                 wreq_to_mem  <= 0;
-//             end
-//         endcase
-//     end
-// end
+always @(posedge clk) begin
+    if (reset) begin
+        wreq_to_mem <= 0;
+        waddr_to_mem <= 13'b0;
+        wdata_to_mem <= 8'b0;
+    end else begin
+        case (next_state)
+            READY: begin
+                waddr_to_mem <= 0;
+                wreq_to_mem  <= 0;
+            end
+            TAG_CHECK: begin
+                waddr_to_mem <= addr_from_cpu;
+                wreq_to_mem  <= 0;
+            end
+            REFILL: begin
+                waddr_to_mem <= addr_from_cpu;
+                wdata_to_mem <= wdata_from_cpu;
+                wreq_to_mem  <= !miss && wreq_from_cpu;
+            end
+            default: begin
+                waddr_to_mem <= 0;
+                wreq_to_mem  <= 0;
+            end
+        endcase
+    end
+end
 
 
 endmodule
