@@ -29,6 +29,7 @@ localparam READY     = 4'b0000,
            REFILL    = 4'b0001;
 
 // Cache line:
+// 0 ..                         37
 // [ VALID_1 | TAG_5 ] | [ DATA_32 ] = 38bits
 // Address info: Addr[]
 // 1. 主内存地址: 13bit
@@ -43,8 +44,8 @@ wire [37:0] cache_line;                 // 从Cache中读出的Cache行数据
 wire [ 5:0] cache_index    = addr_from_cpu[7:2];            // 主存地址中的Cache索引/Cache地址
 wire [ 4:0] tag_from_cpu   = addr_from_cpu[12:8];           // 主存地址的Tag
 wire [ 1:0] offset         = addr_from_cpu[1:0];            // Cache行内的字节偏移
-wire        valid_bit      = cache_line[0];                 // Cache行的有效位
-wire [ 4:0] tag_from_cache = cache_line[5:1];               // Cache行的Tag
+wire        valid_bit      = cache_line[37];                // Cache行的有效位
+wire [ 4:0] tag_from_cache = cache_line[36:32];               // Cache行的Tag
 
 wire [37:0] cache_line_r = {1'b1, tag_from_cache, rdata_from_mem};           // 待写入Cache的Cache行数据
 
@@ -112,7 +113,7 @@ always @(*) begin
 end
 
 // 生成Block RAM的写使能信号
-assign wea = (current_state == TAG_CHECK);// && /* TODO */;
+assign wea = (current_state == REFILL) && rvalid_from_mem;
 
 // 生成读取主存所需的信号，即读请求信号rreq_to_mem和读地址信号raddr_to_mem
 always @(posedge clk) begin
@@ -129,11 +130,11 @@ always @(posedge clk) begin
                 rreq_to_mem  <= 0;
             end
             TAG_CHECK: begin
-                raddr_to_mem <= rreq_from_cpu;
+                raddr_to_mem <= addr_from_cpu;
                 rreq_to_mem  <= miss;
             end
             REFILL: begin
-                raddr_to_mem <= rreq_from_cpu;
+                raddr_to_mem <= addr_from_cpu;
                 rreq_to_mem  <= 1'b1;
             end
             default: begin
