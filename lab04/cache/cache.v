@@ -47,7 +47,7 @@ wire [ 1:0] offset         = addr_from_cpu[1:0];            // Cache行内的字节偏
 wire        valid_bit      = cache_line[37];                // Cache行的有效位
 wire [ 4:0] tag_from_cache = cache_line[36:32];               // Cache行的Tag
 
-wire [37:0] cache_line_r = {1'b1, tag_from_cache, rdata_from_mem};           // 待写入Cache的Cache行数据
+wire [37:0] cache_line_r = {1'b1, tag_from_cpu, rdata_from_mem};           // 待写入Cache的Cache行数据
 
 wire hit  = (current_state == TAG_CHECK) && (valid_bit) && (tag_from_cache == tag_from_cpu);
 wire miss = (tag_from_cache != tag_from_cpu) | (~valid_bit);
