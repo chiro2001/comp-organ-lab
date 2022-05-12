@@ -1,0 +1,179 @@
+=======================读Cache测试全部通过=========================
+r [3f]: 3f403f3e3d
+写地址为 0000，写数据为 ff
+r [00]: 3f403f3e3d
+Cache写缺失!
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+r [00]: 3f0e0c0b1a
+w [00]: 200e0c0b1a
+	 ==== read mem data [0000]: 0e0c0b1a
+当前Cache行被替换
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+访问地址为 0000
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+Cache读命中!
+r [00]: 200e0c0b1a
+Cache已取回数据 1a
+该地址测试正确，将测试下一个地址
+ ----------- 
+r [00]: 200e0c0b1a
+写地址为 1f00，写数据为 ff
+r [00]: 200e0c0b1a
+Cache写缺失!
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+w [00]: 200e0c0b1a
+	 ==== read mem data [0000]: 0e0c0b1a
+当前Cache行被替换
+r [00]: 200e0c0b1a
+r [00]: 200e0c0b1a
+访问地址为 1f00
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+r [00]: 200e0c0b1a
+等待Cache响应，应得到数据 1a
+w [00]: 3f0e0c0b1a
+	 ==== read mem data [1f00]: 0e0c0b1a
+Cache读命中!
+r [00]: 3f0e0c0b1a
+Cache已取回数据 1a
+该地址测试正确，将测试下一个地址
+ ----------- 
+r [00]: 3f0e0c0b1a
+写地址为 1f04，写数据为 ff
+r [01]: 3f0e0c0b1a
+Cache写命中!
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+r [01]: 3f2c21ff80
+w [01]: 202c21ff80
+	 ==== read mem data [0004]: 2c21ff80
+当前Cache行被替换
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+r [01]: 202c21ff80
+等待Cache响应，应得到数据 ff
+w [01]: 3f2c21ff80
+	 ==== read mem data [1f04]: 2c21ff80
+Cache读命中!
+r [01]: 3f2c21ff80
+Cache已取回数据 80
+r [01]: 3f2c21ff80
+==========================测试未通过，具体请看上面调试信息==========================
+relaunch_xsim_kernel: Time (s): cpu = 00:00:06 ; elapsed = 00:00:05 . Memory (MB): peak = 1580.492 ; gain = 0.000
+relaunch_sim: Time (s): cpu = 00:00:07 ; elapsed = 00:00:11 . Memory (MB): peak = 1580.492 ; gain = 0.000
