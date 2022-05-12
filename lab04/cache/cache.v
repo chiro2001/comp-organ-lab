@@ -5,7 +5,7 @@ module cache (
     input             clk,
     input             reset,
     // 从CPU来的访问信号
-    input wire [12:0] addr_from_cpu,    // CPU來的地址
+    input wire [12:0] addr_from_cpu,    // CPU来的地址
     input wire        rreq_from_cpu,    // CPU来的读请求
     input wire        wreq_from_cpu,    // CPU来的写请求
     input wire [ 7:0] wdata_from_cpu,   // CPU来的写数据
@@ -28,17 +28,27 @@ localparam READY     = 4'b0000,
            TAG_CHECK = 4'b0010,
            REFILL    = 4'b0001;
 
+// Cache line:
+// [ VALID_1 | TAG_5 ] | [ DATA_32 ] = 38bits
+// Address info: Addr[]
+// 1. 主内存地址: 13bit
+// 2. Cache line data: 4Byte 32bits
+// 3. offset 2bits
+// 4. Cache size: 256Byte, index: 8bits
+// Addr: [ TAG_5 | INDEX_6 | OFFSET_2 ] = 13bits
+
 wire        wea;                        // Cache写使能信号
-wire [37:0] cache_line_r = /* TODO */   // 待写入Cache的Cache行数据
 wire [37:0] cache_line;                 // 从Cache中读出的Cache行数据
 
-wire [ 5:0] cache_index    = /* TODO */         // 主存地址中的Cache索引/Cache地址
-wire [ 4:0] tag_from_cpu   = /* TODO */         // 主存地址的Tag
-wire [ 1:0] offset         = /* TODO */         // Cache行内的字节偏移
-wire        valid_bit      = /* TODO */         // Cache行的有效位
-wire [ 4:0] tag_from_cache = /* TODO */         // Cache行的Tag
+wire [ 5:0] cache_index    = addr_from_cpu[7:2];            // 主存地址中的Cache索引/Cache地址
+wire [ 4:0] tag_from_cpu   = addr_from_cpu[12:8];           // 主存地址的Tag
+wire [ 1:0] offset         = addr_from_cpu[1:0];            // Cache行内的字节偏移
+wire        valid_bit      = cache_line[0];                 // Cache行的有效位
+wire [ 4:0] tag_from_cache = cache_line[5:1];               // Cache行的Tag
 
-wire hit  = /* TODO */ && /* TODO */ && /* TODO */;
+wire [37:0] cache_line_r = {1'b1, tag_from_cache, rdata_from_mem};           // 待写入Cache的Cache行数据
+
+wire hit  = (current_state == TAG_CHECK) && (valid_bit) && (tag_from_cache == tag_from_cpu);
 wire miss = (tag_from_cache != tag_from_cpu) | (~valid_bit);
 
 // 根据Cache行的字节偏移，从Cache块中选取CPU所需的字节数据
@@ -70,24 +80,29 @@ end
 always @(*) begin
     case(current_state)
         READY: begin
-            if (/* TODO */) begin
-                next_state = /* TODO */;
+            if (rreq_from_cpu || wreq_from_cpu) begin
+                next_state = TAG_CHECK;
             end else begin
-                next_state = /* TODO */;
+                next_state = READY;
             end
         end
         TAG_CHECK: begin
-            if (/* TODO */) begin
-                next_state = /* TODO */;
+            if (miss) begin
+                next_state = REFILL;
+            // end else begin if (hit) begin
+            //     next_state = READY;
+            // end else begin
+            //     next_state = TAG_CHECK;
+            // end
             end else begin
-                next_state = /* TODO */;
+                next_state = READY;
             end
         end
         REFILL: begin
-            if (/* TODO */) begin
-                next_state = /* TODO */;
+            if (rvalid_from_mem) begin
+                next_state = TAG_CHECK;
             end else begin 
-                next_state = /* TODO */;
+                next_state = REFILL;
             end
         end
         default: begin
@@ -97,26 +112,29 @@ always @(*) begin
 end
 
 // 生成Block RAM的写使能信号
-assign wea = (current_state == /* TODO */) && /* TODO */;
+assign wea = (current_state == TAG_CHECK);// && /* TODO */;
 
 // 生成读取主存所需的信号，即读请求信号rreq_to_mem和读地址信号raddr_to_mem
 always @(posedge clk) begin
     if (reset) begin
         raddr_to_mem <= 0;
         rreq_to_mem <= 0;
+        wreq_to_mem <= 0;
+        waddr_to_mem <= 13'b0;
+        wdata_to_mem <= 8'b0;
     end else begin
         case (next_state)
             READY: begin
-                raddr_to_mem <= /* TODO */
-                rreq_to_mem  <= /* TODO */
+                raddr_to_mem <= 0;
+                rreq_to_mem  <= 0;
             end
             TAG_CHECK: begin
-                raddr_to_mem <= /* TODO */
-                rreq_to_mem  <= /* TODO */
+                raddr_to_mem <= rreq_from_cpu;
+                rreq_to_mem  <= miss;
             end
             REFILL: begin
-                raddr_to_mem <= /* TODO */
-                rreq_to_mem  <= /* TODO */
+                raddr_to_mem <= rreq_from_cpu;
+                rreq_to_mem  <= 1'b1;
             end
             default: begin
                 raddr_to_mem <= 0;
