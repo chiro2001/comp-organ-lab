@@ -137,6 +137,10 @@ always @(posedge clk) begin
     if (reset) begin
         raddr_to_mem <= 0;
         rreq_to_mem <= 0;
+
+        wreq_to_mem <= 0;
+        waddr_to_mem <= 13'b0;
+        wdata_to_mem <= 8'b0;
     end else begin
         case (next_state)
             READY: begin
@@ -145,11 +149,11 @@ always @(posedge clk) begin
             end
             TAG_CHECK: begin
                 raddr_to_mem <= addr_from_cpu;
-                rreq_to_mem  <= miss && rreq_from_cpu;
+                rreq_to_mem  <= miss && rreq_from_cpu && !rvalid_from_mem;
             end
             REFILL: begin
                 raddr_to_mem <= addr_from_cpu;
-                rreq_to_mem  <= rreq_from_cpu;
+                rreq_to_mem  <= rreq_from_cpu && !rvalid_from_mem;
             end
             default: begin
                 raddr_to_mem <= 0;
@@ -163,33 +167,33 @@ end
 
 // 写命中处理（写直达法）：写命中时，既要更新Cache块，也要更新内存数据
 // 写缺失：不写入主存，hit = 0
-always @(posedge clk) begin
-    if (reset) begin
-        wreq_to_mem <= 0;
-        waddr_to_mem <= 13'b0;
-        wdata_to_mem <= 8'b0;
-    end else begin
-        case (next_state)
-            READY: begin
-                waddr_to_mem <= 0;
-                wreq_to_mem  <= 0;
-            end
-            TAG_CHECK: begin
-                waddr_to_mem <= addr_from_cpu;
-                wreq_to_mem  <= !miss && wreq_from_cpu;
-                wdata_to_mem <= wdata_from_cpu;
-            end
-            REFILL: begin
-                waddr_to_mem <= addr_from_cpu;
-                wreq_to_mem  <= wreq_from_cpu;
-            end
-            default: begin
-                waddr_to_mem <= 0;
-                wreq_to_mem  <= 0;
-            end
-        endcase
-    end
-end
+// always @(posedge clk) begin
+//     if (reset) begin
+//         wreq_to_mem <= 0;
+//         waddr_to_mem <= 13'b0;
+//         wdata_to_mem <= 8'b0;
+//     end else begin
+//         case (next_state)
+//             READY: begin
+//                 waddr_to_mem <= 0;
+//                 wreq_to_mem  <= 0;
+//             end
+//             TAG_CHECK: begin
+//                 waddr_to_mem <= addr_from_cpu;
+//                 wreq_to_mem  <= !miss && wreq_from_cpu;
+//                 wdata_to_mem <= wdata_from_cpu;
+//             end
+//             REFILL: begin
+//                 waddr_to_mem <= addr_from_cpu;
+//                 wreq_to_mem  <= wreq_from_cpu;
+//             end
+//             default: begin
+//                 waddr_to_mem <= 0;
+//                 wreq_to_mem  <= 0;
+//             end
+//         endcase
+//     end
+// end
 
 
 endmodule

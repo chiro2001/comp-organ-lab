@@ -97,6 +97,7 @@ always @(posedge clk) begin
             raddr_latch <= raddr_latch;
             burst_cnt   <= 0;
             wait_count  <= 0;
+            $display("\t ==== read mem data [%x]: %x", raddr, rdata);
         end
     end
 end
@@ -130,7 +131,6 @@ always @(*) begin
         end
         RESP: begin
             raddr_to_ram = 0;
-            $display("\t ==== read mem data [%x]: %x", raddr, reg4b);
             rdata        = reg4b;
             rvalid       = 1;
         end
