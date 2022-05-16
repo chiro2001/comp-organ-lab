@@ -38,3 +38,12 @@
 4. `lab03/chisel/src/main/scala/booth/BetterBooth.scala`：Chisel 实现的 2 位 Booth 算法
 5. `lab03/simulation/tmp/dump_booth(2).vcd`：仿真产生的波形文件
 
+## 实验4说明
+
+实验文件位于 `lab04/` 目录下；作为作业提交的 `cache.v` 和实验报告（PDF）在根目录下。
+
+**文件：**
+
+1. `cache.v`：直接相连的 Cache 主逻辑
+2. `/实验4 直接映射Cache设计-实验报告.pdf`：实验报告
+3. `lab04/cache/`：Vivado 工程

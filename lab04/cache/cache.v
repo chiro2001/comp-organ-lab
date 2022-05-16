@@ -75,15 +75,6 @@ blk_mem_gen_0 u_cache (
     .douta  (cache_line  )
 );
 
-// always @(posedge clk) begin
-//     if (wea) begin
-//         $display("w [%x]: %x", cache_index, cache_line_r);
-//     end else begin
-//         $display("r [%x]: %x", cache_index, cache_line);
-//     end
-// end
-
-
 always @(posedge clk) begin
     if (reset) begin
         current_state <= READY;
